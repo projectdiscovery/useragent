@@ -25,16 +25,13 @@ var (
 func main() {
 	// load user agents from
 	flag.Parse()
-	uastp, err := parseTechPattern()
-	if err != nil {
-		log.Fatal(err)
-	}
-	uasi, err := parseIntoli()
+
+	uas, err := parseSources()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	data, err := json.Marshal(append(uastp, uasi...))
+	data, err := json.Marshal(uas)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -48,6 +45,7 @@ func main() {
 	_, _ = fout.WriteString(fmt.Sprintf("package useragent\n\nvar userAgentsData = `%s`", string(data)))
 }
 
+// getHttpClient with common options
 func getHttpClient() *http.Client {
 	transport := http.Transport{
 		Proxy: http.ProxyFromEnvironment,
@@ -59,11 +57,27 @@ func getHttpClient() *http.Client {
 	return &http.Client{Transport: &transport}
 }
 
+// parseSources and retrieve a list of user agents with metadata
+func parseSources() ([]*useragent.UserAgent, error) {
+	uas1, err := parseTechPattern()
+	if err != nil {
+		return nil, err
+	}
+	uas2, err := parseGhRepo()
+	if err != nil {
+		return nil, err
+	}
+
+	return append(uas1, uas2...), nil
+}
+
+const UrlTechPattern = "https://techpatterns.com/downloads/firefox/useragentswitcher.xml"
+
+// Parses source at "https://techpatterns.com/downloads/firefox/useragentswitcher.xml"
 func parseTechPattern() ([]*useragent.UserAgent, error) {
-	URL := "https://techpatterns.com/downloads/firefox/useragentswitcher.xml"
 	httpClient := getHttpClient()
 
-	resp, err := httpClient.Get(URL)
+	resp, err := httpClient.Get(UrlTechPattern)
 	if err != nil {
 		return nil, err
 	}
@@ -72,10 +86,6 @@ func parseTechPattern() ([]*useragent.UserAgent, error) {
 	if err != nil {
 		return nil, err
 	}
-	// data, err := os.ReadFile("useragentswitcher.xml")
-	// if err != nil {
-	// 	return nil, err
-	// }
 
 	doc, err := xmlquery.Parse(bytes.NewReader(data))
 	if err != nil {
@@ -113,32 +123,13 @@ func parseTechPattern() ([]*useragent.UserAgent, error) {
 	return userAgents, nil
 }
 
-type intoliConnection struct {
-	DownLink      float64 `json:"downlink"`
-	EffectiveType string  `json:"effectiveType"`
-	RTT           int     `json:"rtt"`
-}
+const UrlGhRepository = "https://github.com/intoli/user-agents/raw/master/src/user-agents.json.gz"
 
-type intoliUserAgent struct {
-	AppName        string           `json:"appName"`
-	Connection     intoliConnection `json:"connection"`
-	Platform       string           `json:"platform"`
-	PluginsLength  int              `json:"pluginsLength"`
-	Vendor         string           `json:"vendor"`
-	UserAgent      string           `json:"userAgent"`
-	ViewportHeight int              `json:"viewportHeight"`
-	ViewportWidth  int              `json:"viewportWidth"`
-	DeviceCategory string           `json:"deviceCategory"`
-	ScreenHeight   int              `json:"screenHeight"`
-	ScreenWidth    int              `json:"screenWidth"`
-	Weight         float64          `json:"weight"`
-}
-
-func parseIntoli() ([]*useragent.UserAgent, error) {
-	URL := "https://github.com/intoli/user-agents/raw/master/src/user-agents.json.gz"
+// parseGhRepo at UrlGhRepository
+func parseGhRepo() ([]*useragent.UserAgent, error) {
 	httpClient := getHttpClient()
 
-	resp, err := httpClient.Get(URL)
+	resp, err := httpClient.Get(UrlGhRepository)
 	if err != nil {
 		return nil, err
 	}
@@ -148,18 +139,6 @@ func parseIntoli() ([]*useragent.UserAgent, error) {
 		return nil, err
 	}
 	defer r.Close()
-
-	// f, err := os.Open("user-agents.json.gz")
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// defer f.Close()
-
-	// r, err := gzip.NewReader(f)
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// defer r.Close()
 
 	data, err := ioutil.ReadAll(r)
 	if err != nil {
@@ -189,4 +168,25 @@ func parseIntoli() ([]*useragent.UserAgent, error) {
 	}
 
 	return userAgents, nil
+}
+
+type intoliConnection struct {
+	DownLink      float64 `json:"downlink"`
+	EffectiveType string  `json:"effectiveType"`
+	RTT           int     `json:"rtt"`
+}
+
+type intoliUserAgent struct {
+	AppName        string           `json:"appName"`
+	Connection     intoliConnection `json:"connection"`
+	Platform       string           `json:"platform"`
+	PluginsLength  int              `json:"pluginsLength"`
+	Vendor         string           `json:"vendor"`
+	UserAgent      string           `json:"userAgent"`
+	ViewportHeight int              `json:"viewportHeight"`
+	ViewportWidth  int              `json:"viewportWidth"`
+	DeviceCategory string           `json:"deviceCategory"`
+	ScreenHeight   int              `json:"screenHeight"`
+	ScreenWidth    int              `json:"screenWidth"`
+	Weight         float64          `json:"weight"`
 }
