@@ -37,22 +37,47 @@ func Mobile(userAgent *UserAgent) bool {
 	return ContainsTags(userAgent, "mobile")
 }
 
-// Mobile checks if the user agent has typical desktop tags
+// Legacy checks if the user agent falls under legacy category
+func Legacy(userAgent *UserAgent) bool {
+	return ContainsTags(userAgent, "Legacy")
+}
+
+// Google Checks if the user agent has typical GoogleBot tags
+func GoogleBot(userAgent *UserAgent) bool {
+	return ContainsTags(userAgent, "Google", "Spiders")
+}
+
+// Chrome checks if the user agent has typical chrome tags
+func Chrome(userAgent *UserAgent) bool {
+	return ContainsTagsAny(userAgent, "Chrome", "Chromium")
+}
+
+// Mozilla checks if the user agent has typical mozilla firefox tags
+func Mozilla(userAgent *UserAgent) bool {
+	return ContainsTagsAny(userAgent, "Mozilla", "Firefox")
+}
+
+// Safari checks if the user agent has typical safari tags
+func Safari(userAgent *UserAgent) bool {
+	return ContainsTags(userAgent, "Safari")
+}
+
+// Desktop checks if the user agent has typical desktop tags
 func Desktop(userAgent *UserAgent) bool {
 	return ContainsTags(userAgent, "desktop")
 }
 
-// Mobile checks if the user agent has typical apple tags
+// Apple checks if the user agent has typical apple tags
 func Apple(userAgent *UserAgent) bool {
 	return ContainsTags(userAgent, "Apple Computer, Inc.")
 }
 
-// Mobile checks if the user agent has typical windows tags
+// Windows checks if the user agent has typical windows tags
 func Windows(userAgent *UserAgent) bool {
 	return ContainsTagsAny(userAgent, "Win32", "Windows")
 }
 
-// Mobile checks if the user agent has typical bot tags
+// Bot checks if the user agent has typical bot tags
 func Bot(userAgent *UserAgent) bool {
 	return ContainsTagsAny(userAgent, "Spiders - Search")
 }

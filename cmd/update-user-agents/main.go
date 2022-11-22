@@ -31,7 +31,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	data, err := json.Marshal(uas)
+	data, err := json.MarshalIndent(uas, "", "\t")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -102,7 +102,7 @@ func parseTechPattern() ([]*useragent.UserAgent, error) {
 		folderAgents := folder.SelectElements("//useragent")
 		for _, folderAgent := range folderAgents {
 			var tags []string
-			tags = append(tags, folderAgent.SelectAttr("description"))
+			tags = append(tags, folder.SelectAttr("description"))
 			tags = append(tags, folderAgent.SelectAttr("description"))
 			tags = append(tags, folderAgent.SelectAttr("appcodename"))
 			tags = append(tags, folderAgent.SelectAttr("appname"))
