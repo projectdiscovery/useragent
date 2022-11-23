@@ -6,7 +6,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"flag"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -19,7 +18,7 @@ import (
 )
 
 var (
-	userAgentData = flag.String("user-agents", "../../useragent_data.go", "File to write user agents to")
+	userAgentData = flag.String("user-agents", "../../useragent_data.json", "File to write user agents to")
 )
 
 func main() {
@@ -31,18 +30,17 @@ func main() {
 		log.Fatal(err)
 	}
 
-	data, err := json.MarshalIndent(uas, "", "\t")
+	data, err := json.Marshal(uas)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// dump to output file
-	fout, err := os.Create(*userAgentData)
+	err = os.WriteFile(*userAgentData, data, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer fout.Close()
-	_, _ = fout.WriteString(fmt.Sprintf("package useragent\n\nvar userAgentsData = `%s`", string(data)))
+
 }
 
 // getHttpClient with common options
