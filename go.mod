@@ -3,7 +3,7 @@ module github.com/projectdiscovery/useragent
 go 1.18
 
 require (
-	github.com/antchfx/xmlquery v1.3.11
+	github.com/antchfx/xmlquery v1.3.12
 	github.com/projectdiscovery/stringsutil v0.0.0-20220606113319-98a0e607932d
 	github.com/projectdiscovery/utils v0.0.3
 	github.com/stretchr/testify v1.8.1
