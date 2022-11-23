@@ -6,15 +6,15 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"flag"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"os"
 
 	"github.com/antchfx/xmlquery"
-	"github.com/projectdiscovery/sliceutil"
-	"github.com/projectdiscovery/stringsutil"
 	"github.com/projectdiscovery/useragent"
+	sliceutil "github.com/projectdiscovery/utils/slice"
+	stringsutil "github.com/projectdiscovery/utils/strings"
 )
 
 var (
@@ -80,7 +80,7 @@ func parseTechPattern() ([]*useragent.UserAgent, error) {
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +138,7 @@ func parseGhRepo() ([]*useragent.UserAgent, error) {
 	}
 	defer r.Close()
 
-	data, err := ioutil.ReadAll(r)
+	data, err := io.ReadAll(r)
 	if err != nil {
 		return nil, err
 	}
