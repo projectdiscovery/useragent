@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/projectdiscovery/goflags"
 	"github.com/projectdiscovery/useragent"
@@ -29,7 +30,12 @@ func main() {
 				}
 				break
 			}
-			signatures = append(signatures, useragent.FilterMap[v])
+
+			if sig, ok := useragent.FilterMap[v]; ok {
+				signatures = append(signatures, sig)
+			} else {
+				log.Fatalf("tag `%v` not found", v)
+			}
 		}
 
 		uas, err := useragent.PickWithFilters(opts.Max, signatures...)
