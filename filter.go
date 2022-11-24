@@ -9,6 +9,9 @@ import (
 // Filter represent the function signature for a filter
 type Filter func(*UserAgent) bool
 
+// FilterMap contains filter and its respective function signature
+var FilterMap map[string]Filter
+
 // ContainsTagsAny returns true if the user agent contains any of the provided tags
 func ContainsTagsAny(userAgent *UserAgent, tags ...string) bool {
 	for _, tag := range userAgent.Tags {
@@ -80,4 +83,19 @@ func Windows(userAgent *UserAgent) bool {
 // Bot checks if the user agent has typical bot tags
 func Bot(userAgent *UserAgent) bool {
 	return ContainsTagsAny(userAgent, "Spiders - Search")
+}
+
+func init() {
+	FilterMap = map[string]Filter{}
+
+	FilterMap["desktop"] = Desktop
+	FilterMap["mobile"] = Mobile
+	FilterMap["legacy"] = Legacy
+	FilterMap["chrome"] = Chrome
+	FilterMap["mozilla"] = Mozilla
+	FilterMap["googlebot"] = GoogleBot
+	FilterMap["safari"] = Safari
+	FilterMap["apple"] = Apple
+	FilterMap["windows"] = Windows
+	FilterMap["bot"] = Bot
 }
