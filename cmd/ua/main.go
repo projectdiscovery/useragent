@@ -14,7 +14,6 @@ type Options struct {
 }
 
 func main() {
-
 	opts := parseInput()
 
 	if opts.List {
@@ -22,18 +21,14 @@ func main() {
 			fmt.Println(tag)
 		}
 	} else if len(opts.Tags) != 0 {
-
 		signatures := []useragent.Filter{}
-
 		for _, v := range opts.Tags {
-
 			if v == "all" {
 				for _, filter := range useragent.FilterMap {
 					signatures = append(signatures, filter)
 				}
 				break
 			}
-
 			signatures = append(signatures, useragent.FilterMap[v])
 		}
 
