@@ -49,6 +49,12 @@ func PickWithFilters(n int, filters ...Filter) ([]*UserAgent, error) {
 	}
 
 	var userAgents []*UserAgent
+
+	// retrieve all user agents
+	if n == -1 {
+		n = len(filteredUserAgents)
+	}
+
 	for i := 0; i < n; i++ {
 		randomIndex := rand.Intn(len(filteredUserAgents))
 		userAgent := filteredUserAgents[randomIndex]

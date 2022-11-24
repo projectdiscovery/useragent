@@ -8,9 +8,9 @@ import (
 )
 
 type Options struct {
-	List  bool
-	Count int
-	Tags  goflags.StringSlice
+	List bool
+	Max  int
+	Tags goflags.StringSlice
 }
 
 func main() {
@@ -26,10 +26,18 @@ func main() {
 		signatures := []useragent.Filter{}
 
 		for _, v := range opts.Tags {
+
+			if v == "all" {
+				for _, filter := range useragent.FilterMap {
+					signatures = append(signatures, filter)
+				}
+				break
+			}
+
 			signatures = append(signatures, useragent.FilterMap[v])
 		}
 
-		uas, err := useragent.PickWithFilters(opts.Count, signatures...)
+		uas, err := useragent.PickWithFilters(opts.Max, signatures...)
 		if err != nil {
 			panic(err)
 		}
@@ -46,10 +54,10 @@ func parseInput() *Options {
 
 	flagset := goflags.NewFlagSet()
 
-	flagset.SetDescription("ua is a simple user agent query tool which parses user agents from multiple sources")
+	flagset.SetDescription("ua is simple tool to query and filter user agents")
 
 	flagset.BoolVar(&opts.List, "list", false, "list all tags")
-	flagset.IntVar(&opts.Count, "count", 5, "maximum number of user agents")
+	flagset.IntVar(&opts.Max, "max", 5, "maximum number of user agents (use -1 to fetch all)")
 	flagset.StringSliceVar(&opts.Tags, "tags", []string{}, "filter user agents using tags (csv)", goflags.CommaSeparatedStringSliceOptions)
 
 	if err := flagset.Parse(); err != nil {
