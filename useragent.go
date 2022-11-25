@@ -1,19 +1,9 @@
 package useragent
 
 import (
-	"encoding/json"
 	"fmt"
 	"math/rand"
-	"time"
 )
-
-// initialize user agents data
-func init() {
-	rand.Seed(time.Now().UnixNano())
-	if err := json.Unmarshal([]byte(userAgentsData), &UserAgents); err != nil {
-		panic(err)
-	}
-}
 
 // UserAgents of the package
 var UserAgents []*UserAgent
@@ -59,6 +49,12 @@ func PickWithFilters(n int, filters ...Filter) ([]*UserAgent, error) {
 	}
 
 	var userAgents []*UserAgent
+
+	// retrieve all user agents
+	if n == -1 {
+		n = len(filteredUserAgents)
+	}
+
 	for i := 0; i < n; i++ {
 		randomIndex := rand.Intn(len(filteredUserAgents))
 		userAgent := filteredUserAgents[randomIndex]

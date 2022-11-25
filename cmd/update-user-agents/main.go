@@ -6,7 +6,6 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"flag"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -19,7 +18,7 @@ import (
 )
 
 var (
-	userAgentData = flag.String("user-agents", "../../useragent_data.go", "File to write user agents to")
+	userAgentData = flag.String("user-agents", "../../useragent_data.json", "File to write user agents to")
 )
 
 func main() {
@@ -37,12 +36,11 @@ func main() {
 	}
 
 	// dump to output file
-	fout, err := os.Create(*userAgentData)
+	err = os.WriteFile(*userAgentData, data, 0644)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer fout.Close()
-	_, _ = fout.WriteString(fmt.Sprintf("package useragent\n\nvar userAgentsData = `%s`", string(data)))
+
 }
 
 // getHttpClient with common options
@@ -102,7 +100,7 @@ func parseTechPattern() ([]*useragent.UserAgent, error) {
 		folderAgents := folder.SelectElements("//useragent")
 		for _, folderAgent := range folderAgents {
 			var tags []string
-			tags = append(tags, folderAgent.SelectAttr("description"))
+			tags = append(tags, folder.SelectAttr("description"))
 			tags = append(tags, folderAgent.SelectAttr("description"))
 			tags = append(tags, folderAgent.SelectAttr("appcodename"))
 			tags = append(tags, folderAgent.SelectAttr("appname"))
