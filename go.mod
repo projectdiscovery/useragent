@@ -7,7 +7,7 @@ require (
 	github.com/projectdiscovery/goflags v0.1.6
 	github.com/projectdiscovery/stringsutil v0.0.0-20220606113319-98a0e607932d
 	github.com/projectdiscovery/utils v0.0.7
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 )
 
 require (
