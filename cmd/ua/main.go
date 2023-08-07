@@ -9,13 +9,23 @@ import (
 )
 
 type Options struct {
-	List bool
-	Max  int
-	Tags goflags.StringSlice
+	List   bool
+	Max    int
+	Tags   goflags.StringSlice
+	Latest bool
 }
 
 func main() {
 	opts := parseInput()
+
+	if opts.Latest {
+		userAgentClient := useragent.NewUserAgentClient()
+		uas, err := userAgentClient.GetUserAgents()
+		if err != nil {
+			panic(err)
+		}
+		useragent.UserAgents = uas
+	}
 
 	if opts.List {
 		for tag := range useragent.FilterMap {
@@ -60,6 +70,7 @@ func parseInput() *Options {
 	flagset.BoolVar(&opts.List, "list", false, "list all the categorized tags of user-agent")
 	flagset.IntVarP(&opts.Max, "limit", "l", 10, "number of user-agent to list (use -1 to list all)")
 	flagset.StringSliceVarP(&opts.Tags, "tag", "t", []string{}, "list user-agent for given tag", goflags.CommaSeparatedStringSliceOptions)
+	flagset.BoolVar(&opts.Latest, "latest", false, "fetch latest user agents")
 
 	if err := flagset.Parse(); err != nil {
 		panic(err)
