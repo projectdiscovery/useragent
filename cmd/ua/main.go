@@ -66,7 +66,6 @@ func main() {
 			fmt.Println(v.Raw)
 		}
 	}
-
 }
 
 func parseInput() *Options {
@@ -88,5 +87,4 @@ func parseInput() *Options {
 	}
 
 	return &opts
-
 }

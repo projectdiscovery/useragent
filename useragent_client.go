@@ -9,8 +9,8 @@ import (
 	"net/http"
 
 	"github.com/antchfx/xmlquery"
-	"github.com/projectdiscovery/stringsutil"
 	sliceutil "github.com/projectdiscovery/utils/slice"
+	stringsutil "github.com/projectdiscovery/utils/strings"
 )
 
 type UserAgentClient struct{}

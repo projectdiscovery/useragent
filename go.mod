@@ -1,11 +1,10 @@
 module github.com/projectdiscovery/useragent
 
-go 1.18
+go 1.20
 
 require (
 	github.com/antchfx/xmlquery v1.3.16
 	github.com/projectdiscovery/goflags v0.1.6
-	github.com/projectdiscovery/stringsutil v0.0.2
 	github.com/projectdiscovery/utils v0.0.44
 	github.com/stretchr/testify v1.8.4
 )
