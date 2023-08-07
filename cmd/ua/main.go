@@ -65,6 +65,11 @@ func main() {
 		for _, v := range uas {
 			fmt.Println(v.Raw)
 		}
+	} else {
+		// print all uas
+		for _, v := range useragent.UserAgents {
+			fmt.Println(v.Raw)
+		}
 	}
 }
 

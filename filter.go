@@ -1,8 +1,6 @@
 package useragent
 
 import (
-	"strings"
-
 	stringsutil "github.com/projectdiscovery/utils/strings"
 )
 
@@ -27,7 +25,7 @@ func ContainsTags(userAgent *UserAgent, tags ...string) bool {
 	foundTags := make(map[string]struct{})
 	for _, tag := range userAgent.Tags {
 		for _, wantedTag := range tags {
-			if strings.Contains(tag, wantedTag) {
+			if stringsutil.ContainsAnyI(tag, wantedTag) {
 				foundTags[tag] = struct{}{}
 			}
 		}
