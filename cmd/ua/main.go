@@ -9,10 +9,12 @@ import (
 )
 
 type Options struct {
-	List   bool
-	Max    int
-	Tags   goflags.StringSlice
-	Latest bool
+	List    bool
+	Max     int
+	Tags    goflags.StringSlice
+	Latest  bool
+	Chrome  bool
+	Firefox bool
 }
 
 func main() {
@@ -25,6 +27,13 @@ func main() {
 			panic(err)
 		}
 		useragent.UserAgents = uas
+	}
+
+	if opts.Chrome {
+		opts.Tags = append(opts.Tags, "chrome")
+	}
+	if opts.Firefox {
+		opts.Tags = append(opts.Tags, "mozilla")
 	}
 
 	if opts.List {
@@ -71,6 +80,8 @@ func parseInput() *Options {
 	flagset.IntVarP(&opts.Max, "limit", "l", 10, "number of user-agent to list (use -1 to list all)")
 	flagset.StringSliceVarP(&opts.Tags, "tag", "t", []string{}, "list user-agent for given tag", goflags.CommaSeparatedStringSliceOptions)
 	flagset.BoolVar(&opts.Latest, "latest", false, "fetch latest user agents")
+	flagset.BoolVar(&opts.Chrome, "chrome", false, "filter user agents for chrome")
+	flagset.BoolVar(&opts.Firefox, "firefox", false, "filter user agents for firefox")
 
 	if err := flagset.Parse(); err != nil {
 		panic(err)
