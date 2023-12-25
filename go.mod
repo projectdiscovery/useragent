@@ -6,7 +6,7 @@ require (
 	github.com/antchfx/xmlquery v1.3.17
 	github.com/projectdiscovery/goflags v0.1.32
 	github.com/projectdiscovery/stringsutil v0.0.2
-	github.com/projectdiscovery/utils v0.0.68
+	github.com/projectdiscovery/utils v0.0.69
 	github.com/stretchr/testify v1.8.4
 )
 
@@ -27,8 +27,8 @@ require (
 	golang.org/x/exp v0.0.0-20221019170559-20944726eadf // indirect
 	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/sys v0.13.0 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/tools v0.6.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
