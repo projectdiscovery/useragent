@@ -24,7 +24,7 @@ jobs:
 
     - name: Fetch and Save User Agents
       env:
-        API_KEY: ${{ secrets.APIKEY }}
+        API_KEY: ${{ secrets.WHATISMYBROWSER_KEY }}
       run: |
         import requests
         import json
