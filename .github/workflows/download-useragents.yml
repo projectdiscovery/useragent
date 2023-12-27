@@ -1,0 +1,71 @@
+name: Fetch and Save User Agents
+
+on:
+  schedule:
+    - cron: '0 23 * * *' # Run daily at 23:00 hours
+
+jobs:
+  fetch-and-save-user-agents:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Setup Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+
+    - name: Fetch and Save User Agents
+      env:
+        API_KEY: ${{ secrets.APIKEY }}
+      run: |
+        import requests
+        import json
+
+        software_names = ["chrome", "edge", "safari", "firefox", "firefox-esr"]
+        base_url = "https://api.whatismybrowser.com/api/v2/user_agent_database_search"
+
+        for software in software_names:
+            params = {
+                "order_by": "times_seen desc",
+                "hardware_type": "computer",
+                "limit": 500,
+                "offset": 500,
+                "software_name": software
+            }
+            headers = {
+                "X-API-KEY": API_KEY
+            }
+            response = requests.get(base_url, headers=headers, params=params)
+            if response.status_code == 200:
+                with open(f"user-agents/{software}.json", "w") as file:
+                    json.dump(response.json(), file)
+
+    - name: Extract User Agents
+      run: |
+        import json
+        import glob
+
+        user_agents = []
+        for filename in glob.glob('user-agents/*.json'):
+            with open(filename, 'r') as file:
+                data = json.load(file)
+                user_agents.extend([ua['user_agent'] for ua in data['search_results']['user_agents']])
+
+        with open('user-agents/all.txt', 'w') as file:
+            file.write('\n'.join(user_agents))
+
+    - name: Commit and Push
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add user-agents/*.json user-agents/all.txt
+        git commit -m 'Update user agents data'
+        git push
