@@ -3,6 +3,7 @@ name: Fetch and Save User Agents
 on:
   schedule:
     - cron: '0 23 * * *' # Run daily at 23:00 hours
+  workflow_dispatch:
 
 jobs:
   fetch-and-save-user-agents:
