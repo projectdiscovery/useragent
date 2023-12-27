@@ -13,26 +13,36 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v2
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
+    - name: Install jq
+      run: sudo apt-get install jq
 
-    - name: Install Dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install requests
-
-    - name: Fetch and Save User Agents
+    - name: Fetch User Agents and Save JSON
       env:
         API_KEY: ${{ secrets.WHATISMYBROWSER_KEY }}
       run: |
-        import requests
-        import json
+        mkdir -p user-agents
+        for software in chrome edge safari firefox firefox-esr
+        do
+          curl -H "X-API-KEY: $API_KEY" "https://api.whatismybrowser.com/api/v2/user_agent_database_search?order_by=times_seen%20desc&hardware_type=computer&limit=500&offset=500&software_name=$software" \
+          -o "user-agents/${software}.json"
+        done
 
-        software_names = ["chrome", "edge", "safari", "firefox", "firefox-esr"]
-        base_url = "https://api.whatismybrowser.com/api/v2/user_agent_database_search"
+    - name: Extract User Agents and Save to File
+      run: |
+        mkdir -p user-agents
+        > user-agents/all.txt
+        for file in user-agents/*.json
+        do
+          jq -r '.search_results.user_agents[].user_agent' "$file" >> user-agents/all.txt
+        done
 
+    - name: Commit and Push Changes
+      run: |
+        git config --global user.name 'GitHub Actions'
+        git config --global user.email 'actions@github.com'
+        git add user-agents/
+        git commit -m 'Update user agents data' || echo "No changes to commit"
+        git push
         for software in software_names:
             params = {
                 "order_by": "times_seen desc",
