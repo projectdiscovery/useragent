@@ -29,7 +29,6 @@ jobs:
 
     - name: Extract User Agents and Save to File
       run: |
-        mkdir -p user-agents
         > user-agents/all.txt
         for file in user-agents/*.json
         do
@@ -42,41 +41,4 @@ jobs:
         git config --global user.email 'actions@github.com'
         git add user-agents/
         git commit -m 'Update user agents data' || echo "No changes to commit"
-        git push
-        for software in software_names:
-            params = {
-                "order_by": "times_seen desc",
-                "hardware_type": "computer",
-                "limit": 500,
-                "offset": 500,
-                "software_name": software
-            }
-            headers = {
-                "X-API-KEY": API_KEY
-            }
-            response = requests.get(base_url, headers=headers, params=params)
-            if response.status_code == 200:
-                with open(f"user-agents/{software}.json", "w") as file:
-                    json.dump(response.json(), file)
-
-    - name: Extract User Agents
-      run: |
-        import json
-        import glob
-
-        user_agents = []
-        for filename in glob.glob('user-agents/*.json'):
-            with open(filename, 'r') as file:
-                data = json.load(file)
-                user_agents.extend([ua['user_agent'] for ua in data['search_results']['user_agents']])
-
-        with open('user-agents/all.txt', 'w') as file:
-            file.write('\n'.join(user_agents))
-
-    - name: Commit and Push
-      run: |
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'actions@github.com'
-        git add user-agents/*.json user-agents/all.txt
-        git commit -m 'Update user agents data'
         git push
