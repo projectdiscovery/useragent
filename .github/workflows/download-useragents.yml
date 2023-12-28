@@ -23,7 +23,7 @@ jobs:
         mkdir -p user-agents
         for software in chrome edge safari firefox firefox-esr
         do
-          curl -H "X-API-KEY: $API_KEY" "https://api.whatismybrowser.com/api/v2/user_agent_database_search?order_by=times_seen%20desc&hardware_type=computer&limit=500&offset=500&software_name=$software" \
+          curl -H "X-API-KEY: $API_KEY" "https://api.whatismybrowser.com/api/v2/user_agent_database_search?order_by=times_seen%20desc&hardware_type=computer&limit=200&offset=500&software_name=$software" \
           -o "user-agents/${software}.json"
         done
 
