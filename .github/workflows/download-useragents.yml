@@ -1,4 +1,4 @@
-name: Fetch and Save User Agents
+name: 💡Fetch and Update UAs
 
 on:
   schedule:
