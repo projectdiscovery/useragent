@@ -121,7 +121,7 @@ func parseTechPattern() ([]*useragent.UserAgent, error) {
 	return userAgents, nil
 }
 
-const UrlGhRepository = "https://github.com/intoli/user-agents/raw/master/src/user-agents.json.gz"
+const UrlGhRepository = "https://github.com/intoli/user-agents/raw/main/src/user-agents.json.gz"
 
 // parseGhRepo at UrlGhRepository
 func parseGhRepo() ([]*useragent.UserAgent, error) {
