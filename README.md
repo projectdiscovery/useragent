@@ -32,3 +32,7 @@ Flags:
 ```
 
 The useragent tool is designed to be simple and efficient, making it easy to query and filter user agents based on your specific needs.
+
+## Credits
+
+This tool utilizes user agent data obtained from [WhatIsMyBrowser.com](https://www.whatismybrowser.com).
