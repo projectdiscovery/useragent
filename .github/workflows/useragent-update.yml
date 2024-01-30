@@ -21,7 +21,7 @@ jobs:
 
        - name: Update User-Agents Data
          env:
-            API_KEY: ${{ secrets.WHATISMYBROWSER_KEY }}
+            WHATISMYBROWSER_KEY: ${{ secrets.WHATISMYBROWSER_KEY }}
          run: |
            go run .
          working-directory: cmd/update-useragent
