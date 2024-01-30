@@ -45,7 +45,11 @@ func getUserAgents() []*useragent.UserAgent {
 		if err != nil {
 			continue
 		}
-		req.Header.Add("X-API-KEY", os.Getenv("API_KEY"))
+		apiKey := os.Getenv("WHATISMYBROWSER_KEY")
+		if apiKey == "" {
+			log.Fatal("API key is empty. Please set the WHATISMYBROWSER_KEY environment variable.")
+		}
+		req.Header.Add("X-API-KEY", apiKey)
 
 		resp, err := httpClient.Do(req)
 		if err != nil {
