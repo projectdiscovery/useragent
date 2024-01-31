@@ -40,7 +40,7 @@ func getUserAgents() []*useragent.UserAgent {
 
 	httpClient := buildHttpClient()
 	for _, browser := range browsers {
-		whatismybrowserApiUrl := fmt.Sprintf(`https://api.whatismybrowser.com/api/v2/user_agent_database_search?order_by=times_seen%%20desc&limit=300&offset=500&software_name=%s`, browser)
+		whatismybrowserApiUrl := fmt.Sprintf(`https://api.whatismybrowser.com/api/v2/user_agent_database_search?order_by=times_seen%%20desc&hardware_type=computer&limit=300&offset=500&software_name=%s`, browser)
 		req, err := http.NewRequest("GET", whatismybrowserApiUrl, nil)
 		if err != nil {
 			continue

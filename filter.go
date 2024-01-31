@@ -65,9 +65,9 @@ func Safari(userAgent *UserAgent) bool {
 	return ContainsTags(userAgent, "Safari")
 }
 
-// Desktop checks if the user agent has typical desktop tags
-func Desktop(userAgent *UserAgent) bool {
-	return ContainsTags(userAgent, "desktop")
+// Computer checks if the user agent has typical computer tags
+func Computer(userAgent *UserAgent) bool {
+	return ContainsTags(userAgent, "computer")
 }
 
 // Apple checks if the user agent has typical apple tags
@@ -88,7 +88,7 @@ func Bot(userAgent *UserAgent) bool {
 func init() {
 	FilterMap = map[string]Filter{}
 
-	FilterMap["desktop"] = Desktop
+	FilterMap["computer"] = Computer
 	FilterMap["mobile"] = Mobile
 	FilterMap["legacy"] = Legacy
 	FilterMap["chrome"] = Chrome
