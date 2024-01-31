@@ -2,7 +2,8 @@ package useragent
 
 import (
 	"fmt"
-	"math/rand"
+
+	sliceutil "github.com/projectdiscovery/utils/slice"
 )
 
 // UserAgents of the package
@@ -56,9 +57,12 @@ func PickWithFilters(n int, filters ...Filter) ([]*UserAgent, error) {
 	}
 
 	for i := 0; i < n; i++ {
-		randomIndex := rand.Intn(len(filteredUserAgents))
-		userAgent := filteredUserAgents[randomIndex]
+		userAgent := sliceutil.PickRandom(filteredUserAgents)
 		userAgents = append(userAgents, userAgent)
 	}
 	return userAgents, nil
+}
+
+func PickRandom() *UserAgent {
+	return sliceutil.PickRandom(UserAgents)
 }
