@@ -13,7 +13,7 @@ func TestPick(t *testing.T) {
 }
 
 func TestPickWithFilters(t *testing.T) {
-	uas, err := PickWithFilters(1, Desktop)
+	uas, err := PickWithFilters(1, Computer)
 	require.Nil(t, err, "could not pick user agent")
 	require.Len(t, uas, 1, "unexpected length")
 }
