@@ -18,5 +18,13 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v4
 
+      - name: Build
+        run: go build ./...
+        working-directory: .
+
       - name: Test
         run: go test ./...
+
+      - name: Run Example
+        run: go run .
+        working-directory: examples/
