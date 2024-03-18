@@ -20,8 +20,8 @@ github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZb
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/projectdiscovery/blackrock v0.0.1 h1:lHQqhaaEFjgf5WkuItbpeCZv2DUIE45k0VbGJyft6LQ=
 github.com/projectdiscovery/blackrock v0.0.1/go.mod h1:ANUtjDfaVrqB453bzToU+YB4cUbvBRpLvEwoWIwlTss=
-github.com/projectdiscovery/goflags v0.1.43 h1:02EyzlLUm4UAwQM9boBHeWPg1f/XdUa43N5e7YchiUM=
-github.com/projectdiscovery/goflags v0.1.43/go.mod h1:I8FvblBsdXWOooTlsv6J5jOrnTtksiCCbZ1wvEkKCao=
+github.com/projectdiscovery/goflags v0.1.44 h1:O/ObgErxBgLO1snPJ4LlM3j3aO1IUFN5l42imtnxSmE=
+github.com/projectdiscovery/goflags v0.1.44/go.mod h1:Z9lgmcFjEL8SUr2m1uh3X5z/m/2Z/FJvkyAG+6MTeRE=
 github.com/projectdiscovery/stringsutil v0.0.2 h1:uzmw3IVLJSMW1kEg8eCStG/cGbYYZAja8BH3LqqJXMA=
 github.com/projectdiscovery/stringsutil v0.0.2/go.mod h1:EJ3w6bC5fBYjVou6ryzodQq37D5c6qbAYQpGmAy+DC0=
 github.com/projectdiscovery/utils v0.0.83 h1:r7OBAuEwe4lyEwTITbCEZytoxvjk/s0Xra2NT+K4fm4=
