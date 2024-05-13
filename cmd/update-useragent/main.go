@@ -30,7 +30,6 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(len(data))
 
 	err = os.WriteFile(*userAgentData, data, 0644)
 	if err != nil {
