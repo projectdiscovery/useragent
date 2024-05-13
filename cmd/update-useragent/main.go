@@ -23,10 +23,14 @@ func main() {
 	flag.Parse()
 
 	userAgents := getUserAgents()
+	if len(userAgents) == 0 {
+		log.Fatal("Couldn't get user agents. The user agent data will remain unchanged.")
+	}
 	data, err := json.Marshal(userAgents)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(len(data))
 
 	err = os.WriteFile(*userAgentData, data, 0644)
 	if err != nil {
