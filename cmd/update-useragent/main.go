@@ -107,9 +107,7 @@ func buildTags(userAgent UserAgents) []string {
 	tags = append(tags, userAgent.Parse.SoftwareTypeSpecific)
 	tags = append(tags, userAgent.Parse.HardwareTypeSpecific)
 	tags = append(tags, userAgent.Parse.LayoutEngineName)
-	for _, version := range userAgent.Parse.LayoutEngineVersion {
-		tags = append(tags, fmt.Sprintf("%v", version))
-	}
+
 	return tags
 }
 
@@ -126,40 +124,36 @@ func buildHttpClient() *http.Client {
 }
 
 type UserAgentMetaData struct {
-	ID          int    `json:"id"`
-	TimesSeen   int    `json:"times_seen"`
-	FirstSeenAt string `json:"first_seen_at"`
-	LastSeenAt  string `json:"last_seen_at"`
+	ID         int    `json:"id"`
+	TimesSeen  int    `json:"times_seen"`
+	LastSeenAt string `json:"last_seen_at"`
 }
 
 type Parse struct {
-	SimpleSoftwareString          string      `json:"simple_software_string"`
-	SimpleSubDescriptionString    interface{} `json:"simple_sub_description_string"`
-	SimpleOperatingPlatformString interface{} `json:"simple_operating_platform_string"`
-	Software                      string      `json:"software"`
-	SoftwareName                  string      `json:"software_name"`
-	SoftwareNameCode              string      `json:"software_name_code"`
-	SoftwareVersion               string      `json:"software_version"`
-	SoftwareVersionFull           string      `json:"software_version_full"`
-	OperatingSystem               string      `json:"operating_system"`
-	OperatingSystemName           string      `json:"operating_system_name"`
-	OperatingSystemNameCode       string      `json:"operating_system_name_code"`
-	OperatingSystemVersion        string      `json:"operating_system_version"`
-	OperatingSystemVersionFull    string      `json:"operating_system_version_full"`
-	OperatingPlatform             interface{} `json:"operating_platform"`
-	OperatingPlatformCode         interface{} `json:"operating_platform_code"`
-	OperatingPlatformVendorName   interface{} `json:"operating_platform_vendor_name"`
-	SoftwareType                  string      `json:"software_type"`
-	SoftwareSubType               string      `json:"software_sub_type"`
-	HardwareType                  string      `json:"hardware_type"`
-	HardwareSubType               interface{} `json:"hardware_sub_type"`
-	HardwareSubSubType            interface{} `json:"hardware_sub_sub_type"`
-	SoftwareTypeSpecific          string      `json:"software_type_specific"`
-	HardwareTypeSpecific          string      `json:"hardware_type_specific"`
-	LayoutEngineName              string      `json:"layout_engine_name"`
-	ExtraInfo                     struct {
-	} `json:"extra_info"`
-	LayoutEngineVersion []interface{} `json:"layout_engine_version"`
+	SimpleSoftwareString          string `json:"simple_software_string"`
+	SimpleSubDescriptionString    any    `json:"simple_sub_description_string"`
+	SimpleOperatingPlatformString any    `json:"simple_operating_platform_string"`
+	Software                      string `json:"software"`
+	SoftwareName                  string `json:"software_name"`
+	SoftwareNameCode              string `json:"software_name_code"`
+	SoftwareVersion               string `json:"software_version"`
+	SoftwareVersionFull           string `json:"software_version_full"`
+	OperatingSystem               string `json:"operating_system"`
+	OperatingSystemName           string `json:"operating_system_name"`
+	OperatingSystemNameCode       string `json:"operating_system_name_code"`
+	OperatingSystemVersion        string `json:"operating_system_version"`
+	OperatingSystemVersionFull    string `json:"operating_system_version_full"`
+	OperatingPlatform             any    `json:"operating_platform"`
+	OperatingPlatformCode         any    `json:"operating_platform_code"`
+	OperatingPlatformVendorName   any    `json:"operating_platform_vendor_name"`
+	SoftwareType                  string `json:"software_type"`
+	SoftwareSubType               string `json:"software_sub_type"`
+	HardwareType                  string `json:"hardware_type"`
+	HardwareSubType               any    `json:"hardware_sub_type"`
+	HardwareSubSubType            any    `json:"hardware_sub_sub_type"`
+	SoftwareTypeSpecific          string `json:"software_type_specific"`
+	HardwareTypeSpecific          string `json:"hardware_type_specific"`
+	LayoutEngineName              string `json:"layout_engine_name"`
 }
 
 type UserAgents struct {
