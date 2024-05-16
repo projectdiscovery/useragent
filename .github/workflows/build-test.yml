@@ -1,7 +1,9 @@
 name: 🔨 Build Test
 on:
-  push:
   pull_request:
+    paths:
+      - '**.go'
+      - '**.mod'
   workflow_dispatch:
 
 
