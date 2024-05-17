@@ -3,7 +3,7 @@ package useragent
 import (
 	"strings"
 
-	"github.com/projectdiscovery/stringsutil"
+	stringsutil "github.com/projectdiscovery/utils/strings"
 )
 
 // Filter represent the function signature for a filter
