@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/projectdiscovery/goflags v0.1.52
-	github.com/projectdiscovery/utils v0.0.92
+	github.com/projectdiscovery/utils v0.0.93
 	github.com/stretchr/testify v1.9.0
 )
 
@@ -14,6 +14,7 @@ require (
 	github.com/cnf/structhash v0.0.0-20201127153200-e1b16c1ebc08 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
+	github.com/mattn/go-isatty v0.0.19 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.25 // indirect
 	github.com/miekg/dns v1.1.56 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
