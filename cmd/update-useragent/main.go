@@ -10,9 +10,9 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/projectdiscovery/stringsutil"
 	"github.com/projectdiscovery/useragent"
 	sliceutil "github.com/projectdiscovery/utils/slice"
+	stringsutil "github.com/projectdiscovery/utils/strings"
 )
 
 var (
