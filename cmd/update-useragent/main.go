@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"regexp"
 
 	"github.com/projectdiscovery/useragent"
 	sliceutil "github.com/projectdiscovery/utils/slice"
@@ -72,7 +73,12 @@ func getUserAgents() []*useragent.UserAgent {
 		}
 		for _, userAgent := range whatismybrowserResponse.SearchResults.UserAgents {
 			if stringsutil.ContainsAnyI(userAgent.UserAgent,
-				"sleep", "timeout", "get-help", "start", "system") {
+				"sleep", "timeout", "get-help", "start", "system",
+				"Functionize", "Edg/", "assetnote", "gzip", "norton",
+				"avast", "ccleaner", "avg", "xtpt", "promptmanager", "SznProhlizec",
+				"(0-0)", "unknown", "ddg", "opx", "RDDocuments", "Reeder",
+				"Topee", "TulipSAT") ||
+				hasUidSuffix(userAgent.UserAgent) {
 				continue
 			}
 
@@ -85,6 +91,11 @@ func getUserAgents() []*useragent.UserAgent {
 		}
 	}
 	return userAgents
+}
+
+func hasUidSuffix(s string) bool {
+	var guidPattern = regexp.MustCompile(`\(?[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\)?$`)
+	return guidPattern.MatchString(s)
 }
 
 func buildTags(userAgent UserAgents) []string {
