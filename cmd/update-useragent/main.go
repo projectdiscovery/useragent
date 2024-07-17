@@ -77,7 +77,8 @@ func getUserAgents() []*useragent.UserAgent {
 				"Functionize", "Edg/", "assetnote", "gzip", "norton",
 				"avast", "ccleaner", "avg", "xtpt", "promptmanager", "SznProhlizec",
 				"(0-0)", "unknown", "ddg", "opx", "RDDocuments", "Reeder",
-				"Topee", "TulipSAT") ||
+				"Topee", "TulipSAT", "Opendium", "DingTalk", "Gear",
+				"GoodAccess", "uacq") ||
 				hasUidSuffix(userAgent.UserAgent) {
 				continue
 			}
