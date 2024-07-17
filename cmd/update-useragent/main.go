@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/projectdiscovery/stringsutil"
 	"github.com/projectdiscovery/useragent"
 	sliceutil "github.com/projectdiscovery/utils/slice"
 )
@@ -70,6 +71,11 @@ func getUserAgents() []*useragent.UserAgent {
 			continue
 		}
 		for _, userAgent := range whatismybrowserResponse.SearchResults.UserAgents {
+			if stringsutil.ContainsAnyI(userAgent.UserAgent,
+				"sleep", "timeout", "get-help", "start", "system") {
+				continue
+			}
+
 			tags := buildTags(userAgent)
 			userAgent := &useragent.UserAgent{
 				Raw:  userAgent.UserAgent,
