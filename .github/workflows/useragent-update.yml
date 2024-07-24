@@ -30,8 +30,8 @@ jobs:
          uses: peter-evans/create-pull-request@v6
          with:
            token: ${{ secrets.GITHUB_TOKEN }}
-           commit-message: "Weekly useragent update [$(date)]"
-           title: "Weekly useragent update [$(date)]"
+           commit-message: "Weekly useragent update"
+           title: "Weekly useragent update"
            body: "This PR updates the useragent data."
            branch: 'useragent-update'
            delete-branch: true
