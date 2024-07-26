@@ -26,16 +26,13 @@ jobs:
            go run .
          working-directory: cmd/update-useragent
 
-       - name: Create local changes
-         run: |
-           git add useragent_data.json
-       - name: Commit files
-         run: |
-           git config --local user.email "action@github.com"
-           git config --local user.name "GitHub Action"
-           git commit -m "Weekly useragent update [$(date)] :robot:" -a --allow-empty
-       - name: Push changes
-         uses: ad-m/github-push-action@master
+       - name: Create Pull Request
+         uses: peter-evans/create-pull-request@v6
          with:
-           github_token: ${{ secrets.GITHUB_TOKEN }}
-           branch: ${{ github.ref }} 
+           token: ${{ secrets.GITHUB_TOKEN }}
+           commit-message: "Weekly useragent update"
+           title: "Weekly useragent update"
+           body: "This PR updates the useragent data."
+           branch: 'useragent-update'
+           delete-branch: true
+           base: 'main'
