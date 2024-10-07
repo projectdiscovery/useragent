@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/projectdiscovery/goflags v0.1.64
-	github.com/projectdiscovery/utils v0.2.12
+	github.com/projectdiscovery/utils v0.2.13
 	github.com/stretchr/testify v1.9.0
 )
 
