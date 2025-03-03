@@ -3,7 +3,7 @@ module github.com/projectdiscovery/useragent
 go 1.21
 
 require (
-	github.com/projectdiscovery/goflags v0.1.73
+	github.com/projectdiscovery/goflags v0.1.74
 	github.com/projectdiscovery/utils v0.4.12
 	github.com/stretchr/testify v1.9.0
 )
