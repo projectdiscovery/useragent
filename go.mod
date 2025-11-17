@@ -6,7 +6,7 @@ toolchain go1.24.2
 
 require (
 	github.com/projectdiscovery/goflags v0.1.74
-	github.com/projectdiscovery/utils v0.6.0
+	github.com/projectdiscovery/utils v0.6.1
 	github.com/stretchr/testify v1.11.1
 )
 
