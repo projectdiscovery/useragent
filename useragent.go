@@ -2,6 +2,7 @@ package useragent
 
 import (
 	"fmt"
+	"slices"
 
 	sliceutil "github.com/projectdiscovery/utils/slice"
 )
@@ -35,10 +36,10 @@ func PickWithFilters(n int, filters ...Filter) ([]*UserAgent, error) {
 	if len(filters) > 0 {
 		for _, ua := range UserAgents {
 			for _, filter := range filters {
-				if !filter(ua) {
-					continue
+				if filter(ua) {
+					filteredUserAgents = append(filteredUserAgents, ua)
+					break
 				}
-				filteredUserAgents = append(filteredUserAgents, ua)
 			}
 		}
 	} else {
@@ -49,12 +50,12 @@ func PickWithFilters(n int, filters ...Filter) ([]*UserAgent, error) {
 		return nil, fmt.Errorf("the filtered database does not contain %d items", n)
 	}
 
-	var userAgents []*UserAgent
-
 	// retrieve all user agents
 	if n == -1 {
-		n = len(filteredUserAgents)
+		return slices.Clone(filteredUserAgents), nil
 	}
+
+	var userAgents []*UserAgent
 
 	for i := 0; i < n; i++ {
 		userAgent := sliceutil.PickRandom(filteredUserAgents)
