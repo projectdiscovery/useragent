@@ -3,8 +3,8 @@ module github.com/projectdiscovery/useragent
 go 1.26.0
 
 require (
-	github.com/projectdiscovery/goflags v0.2.1
-	github.com/projectdiscovery/utils v0.11.14
+	github.com/projectdiscovery/goflags v0.2.2
+	github.com/projectdiscovery/utils v0.11.16
 	github.com/stretchr/testify v1.12.1
 )
 
@@ -21,7 +21,7 @@ require (
 	github.com/microcosm-cc/bluemonday v1.0.27 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/power-devops/perfstat v0.0.0-20240221224432-82ca36839d55 // indirect
-	github.com/projectdiscovery/blackrock v0.0.2 // indirect
+	github.com/projectdiscovery/blackrock v0.0.4 // indirect
 	github.com/saintfish/chardet v0.0.0-20230101081208-5e3ef4b5456d // indirect
 	github.com/shirou/gopsutil/v4 v4.26.3 // indirect
 	github.com/tidwall/gjson v1.18.0 // indirect
